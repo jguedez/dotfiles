@@ -39,8 +39,8 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'hylang/vim-hy'
 
 " Git plugins
-Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
+Bundle 'mhinz/vim-signify'
 
 " Github repos of the user 'vim-scripts'
 " => can omit the username part
