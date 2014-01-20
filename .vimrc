@@ -37,6 +37,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'guns/vim-clojure-static'
 Bundle 'hylang/vim-hy'
+Bundle 'derekwyatt/vim-scala'
 
 " Git plugins
 Bundle 'tpope/vim-fugitive'
@@ -70,6 +71,8 @@ set shiftwidth=4
 
 map <left> <nop>
 map <right> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 noremap <left> gT
 noremap <right> gt
 noremap <up> :tabnew <CR>
@@ -86,8 +89,11 @@ if filereadable($VIMRUNTIME . "/macros/matchit.vim")
 endif
 let b:match_debug=1
 
-au BufEnter * setlocal cursorline
-au BufLeave * setlocal nocursorline
+augroup cursorline
+    autocmd!
+    au BufEnter * setlocal cursorline
+    au BufLeave * setlocal nocursorline
+augroup END
 
 " Powerline setup
 python from powerline.vim import setup as powerline_setup
@@ -101,9 +107,9 @@ noremap <silent> <c-j> :TmuxNavigateDown<cr>
 noremap <silent> <c-k> :TmuxNavigateUp<cr>
 noremap <silent> <c-l> :TmuxNavigateRight<cr>
 noremap <silent> <c-\> :TmuxNavigatePrevious<cr>
-vmap <F5> "ry ;call Send_to_Tmux(@r)<CR>
-nmap <F5> V "ry ;call Send_to_Tmux(@r)<CR>
-nmap <S-F5> <Plug>SetTmuxVars
+vnoremap <F5> "ry :call Send_to_Tmux(@r)<CR>
+nnoremap <F5> V "ry :call Send_to_Tmux(@r)<CR>
+nnoremap <S-F5> <Plug>SetTmuxVars
 "
 " helpers for clipboard/copy/paste
 set pastetoggle=<F2>
@@ -125,15 +131,33 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " emmet just for html/css
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,htmldjango EmmetInstall
+augroup plugin_emmet
+    autocmd!
+    autocmd FileType html,css,htmldjango EmmetInstall
+augroup END
 
 " ctrlp - extensions excludes
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 
 " filetype overrides
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType coffee setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType hy setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup filetype_custom
+    autocmd!
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType coffee setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType hy setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
+
+" convenience mapping
+nnoremap - dd
+nnoremap <space> V
+noremap _ g_
+
+" " vimscript the hard way
+nnoremap <silent> <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+iabbrev ORder Order
+inoremap jj <esc>
+nnoremap / /\v
