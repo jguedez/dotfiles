@@ -1,0 +1,6 @@
+nnoremap ; :
+nnoremap : ;
+inoremap jj <esc>
+nnoremap <space> V
+set tabstop=4
+set shiftwidth=4
