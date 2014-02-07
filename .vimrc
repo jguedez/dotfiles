@@ -38,6 +38,7 @@ Bundle 'digitaltoad/vim-jade'
 Bundle 'guns/vim-clojure-static'
 Bundle 'hylang/vim-hy'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'chrisbra/csv.vim'
 
 " Git plugins
 Bundle 'tpope/vim-fugitive'
