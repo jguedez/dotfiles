@@ -20,6 +20,7 @@ alias ll="ls -alh"
 alias llg="ls -alh|grep"
 alias f="find ."
 alias top="top -o cpu"
+alias fvimdel="find . -name \"*.swp\" -delete"
 
 # Git aliases - http://www.catonmat.net/blog/git-aliases/
 alias ga='git add'
