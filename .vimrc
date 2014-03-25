@@ -97,11 +97,6 @@ augroup cursorline
     au BufLeave * setlocal nocursorline
 augroup END
 
-" Powerline setup
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
 " tmux integration options
 let g:tmux_navigator_no_mappings = 1
 noremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -163,3 +158,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev ORder Order
 inoremap jj <esc>
 nnoremap / /\v
+
+" import local .vimrc
+if filereadable($HOME . "/.vimrc_local")
+ source $HOME/.vimrc_local
+endif
