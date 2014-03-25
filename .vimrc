@@ -1,58 +1,68 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" Setting up Vundle - the vim plugin bundler
+    let iCanHazVundle=1
+    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+    if !filereadable(vundle_readme)
+        echo "Installing Vundle.."
+        echo ""
+        silent !mkdir -p ~/.vim/bundle
+        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+        let iCanHazVundle=0
+    endif
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    Bundle 'gmarik/vundle'
 
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+    " Core plugins
+    Bundle 'tpope/vim-sensible'
+    Bundle 'majutsushi/tagbar'
+    Bundle 'christoomey/vim-tmux-navigator'
+    Bundle 'mattn/emmet-vim'
+    Bundle 'tomtom/tcomment_vim'
+    Bundle 'scrooloose/nerdtree'
+    Bundle 'ervandew/supertab'
+    Bundle 'tomtom/tlib_vim'
+    Bundle 'jgdavey/tslime.vim'
+    Bundle 'MarcWeber/vim-addon-mw-utils'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'tpope/vim-surround'
+    Bundle 'kien/ctrlp.vim'
+    Bundle 'tomasr/molokai'
 
-" My Bundles here:
-"
-" Core plugins
-Bundle 'tpope/vim-sensible'
-Bundle 'majutsushi/tagbar'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'mattn/emmet-vim'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'ervandew/supertab'
-Bundle 'tomtom/tlib_vim'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tomasr/molokai'
-"Bundle 
+    " Snippets plugins
+    Bundle 'garbas/vim-snipmate'
+    Bundle 'honza/vim-snippets'
 
-" Snippets plugins
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+    " Syntax plugins
+    Bundle 'klen/python-mode'
+    Bundle 'davidhalter/jedi-vim'
+    Bundle 'kchmck/vim-coffee-script'
+    Bundle 'digitaltoad/vim-jade'
+    Bundle 'guns/vim-clojure-static'
+    Bundle 'hylang/vim-hy'
+    Bundle 'derekwyatt/vim-scala'
+    Bundle 'chrisbra/csv.vim'
 
-" Syntax plugins
-Bundle 'klen/python-mode'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'guns/vim-clojure-static'
-Bundle 'hylang/vim-hy'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'chrisbra/csv.vim'
+    " Git plugins
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'mhinz/vim-signify'
 
-" Git plugins
-Bundle 'tpope/vim-fugitive'
-Bundle 'mhinz/vim-signify'
+    " Github repos of the user 'vim-scripts'
+    " => can omit the username part
+    " Bundle 'L9'
+    " Bundle 'FuzzyFinder'
 
-" Github repos of the user 'vim-scripts'
-" => can omit the username part
-" Bundle 'L9'
-" Bundle 'FuzzyFinder'
-
-" non github repos
-"Bundle 'git://git.wincent.com/command-t.git'
-" ...
+    " non github repos
+    "Bundle 'git://git.wincent.com/command-t.git'
+    "...All your other bundles...
+    if iCanHazVundle == 0
+        echo "Installing Bundles, please ignore key map error messages"
+        echo ""
+        :BundleInstall
+    endif
+" Setting up Vundle - the vim plugin bundler end
 
 filetype plugin indent on     " required!
 
