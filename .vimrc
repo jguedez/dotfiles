@@ -24,6 +24,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-surround'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tomasr/molokai'
 "Bundle 
 
 " Snippets plugins
