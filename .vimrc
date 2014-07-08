@@ -36,6 +36,7 @@ filetype off                   " required!
     Bundle 'honza/vim-snippets'
 
     " Syntax plugins
+    Bundle 'scrooloose/syntastic'
     Bundle 'klen/python-mode'
     Bundle 'davidhalter/jedi-vim'
     Bundle 'kchmck/vim-coffee-script'
