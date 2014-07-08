@@ -52,7 +52,23 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gcl='git clone'
 alias glogp='git log --pretty=format:"%h %s" --graph'
-#
+
+# add percol support for zsh history search...
+function exists { which $1 &> /dev/null }
+
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
+
 # source the local init file if available
 if [[ -s $HOME/$LOCAL_FILE ]]; then
     source $HOME/$LOCAL_FILE
