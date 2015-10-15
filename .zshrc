@@ -32,8 +32,8 @@ alias cd.....="cd ../../../.."
 alias cd......="cd ../../../../.."
 alias ll="ls -alh"
 alias llg="ls -alh|grep"
-alias f="find ."
 alias fvimdel="find . -name \"*.swp\" -delete"
+alias httpd="http --download"
 
 # Git aliases - http://www.catonmat.net/blog/git-aliases/
 alias ga='git add'
@@ -52,6 +52,17 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gcl='git clone'
 alias glogp='git log --pretty=format:"%h %s" --graph'
+
+# Vagrant aliases
+alias vup="vagrant up"
+alias vssh="vagrant ssh"
+alias voff="vagrant ssh -c 'sudo poweroff'"
+
+# Docker aliases
+alias dima="docker images"
+alias dpsa="docker ps -a"                                                                                                                                 ⏎
+alias dps="docker ps"
+
 
 # add percol support for zsh history search...
 function exists { which $1 &> /dev/null }
