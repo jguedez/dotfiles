@@ -62,6 +62,7 @@ alias voff="vagrant ssh -c 'sudo poweroff'"
 alias dima="docker images"
 alias dpsa="docker ps -a"                                                                                                                                 ⏎
 alias dps="docker ps"
+alias dremove="docker rm -v \$(docker ps -q -a)"
 
 
 # add percol support for zsh history search...
