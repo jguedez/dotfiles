@@ -17,6 +17,7 @@ filetype off                   " required!
 
     " Core plugins
     Bundle 'tpope/vim-sensible'
+    Bundle 'tpope/vim-unimpaired'
     Bundle 'majutsushi/tagbar'
     Bundle 'christoomey/vim-tmux-navigator'
     Bundle 'mattn/emmet-vim'
@@ -45,6 +46,7 @@ filetype off                   " required!
     Bundle 'hylang/vim-hy'
     Bundle 'derekwyatt/vim-scala'
     Bundle 'chrisbra/csv.vim'
+    Bundle 'fatih/vim-go'
 
     " Git plugins
     Bundle 'tpope/vim-fugitive'
@@ -118,6 +120,9 @@ noremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 vnoremap <F5> "ry :call Send_to_Tmux(@r)<CR>
 nnoremap <F5> V "ry :call Send_to_Tmux(@r)<CR>
 nnoremap <S-F5> <Plug>SetTmuxVars
+
+" flush ctrlp cache (default F5 is already remapped above)
+noremap <F6> :CtrlPClearCache<cr>
 "
 " helpers for clipboard/copy/paste
 set pastetoggle=<F2>
@@ -169,6 +174,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev ORder Order
 inoremap jj <esc>
 nnoremap / /\v
+
+" syntastic
+let g:syntastic_always_populate_loc_list = 1
 
 " import local .vimrc
 if filereadable($HOME . "/.vimrc_local")
