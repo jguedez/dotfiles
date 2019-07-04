@@ -3,7 +3,8 @@ LOCAL_FILE=".bashrc_local"
 set -o vi
 export EDITOR='vim'
 
-alias server='python -m SimpleHTTPServer'
+# alias server='python -m SimpleHTTPServer'
+alias server3='python3 -m http.server'
 
 # http://www.thegeekstuff.com/2008/10/6-awesome-linux-cd-command-hacks-productivity-tip3-for-geeks/
 # http://lifehacker.com/5535495/create-and-change-to-a-new-directory-in-one-command

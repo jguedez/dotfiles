@@ -1,0 +1,3 @@
+set clipboard=unnamedplus
+" => on molokai definition...
+hi Normal ctermbg=16 ctermfg=white

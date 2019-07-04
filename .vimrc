@@ -1,71 +1,46 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-" Setting up Vundle - the vim plugin bundler
-    let iCanHazVundle=1
-    let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-    if !filereadable(vundle_readme)
-        echo "Installing Vundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-        let iCanHazVundle=0
-    endif
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-    Bundle 'gmarik/vundle'
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-    " Core plugins
-    Bundle 'tpope/vim-sensible'
-    Bundle 'tpope/vim-unimpaired'
-    Bundle 'majutsushi/tagbar'
-    Bundle 'christoomey/vim-tmux-navigator'
-    Bundle 'mattn/emmet-vim'
-    Bundle 'tomtom/tcomment_vim'
-    Bundle 'scrooloose/nerdtree'
-    Bundle 'ervandew/supertab'
-    Bundle 'tomtom/tlib_vim'
-    Bundle 'jgdavey/tslime.vim'
-    Bundle 'MarcWeber/vim-addon-mw-utils'
-    Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'tpope/vim-surround'
-    Bundle 'kien/ctrlp.vim'
-    Bundle 'tomasr/molokai'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-    " Snippets plugins
-    Bundle 'garbas/vim-snipmate'
-    Bundle 'honza/vim-snippets'
+" Core plugins
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'mattn/emmet-vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'ervandew/supertab'
+Plugin 'tomtom/tlib_vim'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-surround'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tomasr/molokai'
 
-    " Syntax plugins
-    Bundle 'scrooloose/syntastic'
-    Bundle 'klen/python-mode'
-    Bundle 'davidhalter/jedi-vim'
-    Bundle 'kchmck/vim-coffee-script'
-    Bundle 'digitaltoad/vim-jade'
-    Bundle 'guns/vim-clojure-static'
-    Bundle 'hylang/vim-hy'
-    Bundle 'derekwyatt/vim-scala'
-    Bundle 'chrisbra/csv.vim'
-    Bundle 'fatih/vim-go'
+" Snippets plugins
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
 
-    " Git plugins
-    Bundle 'tpope/vim-fugitive'
-    Bundle 'mhinz/vim-signify'
+" Syntax plugins
+Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'chrisbra/csv.vim'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 
-    " Github repos of the user 'vim-scripts'
-    " => can omit the username part
-    " Bundle 'L9'
-    " Bundle 'FuzzyFinder'
+" Git plugins
+Plugin 'tpope/vim-fugitive'
+Plugin 'mhinz/vim-signify'
 
-    " non github repos
-    "Bundle 'git://git.wincent.com/command-t.git'
-    "...All your other bundles...
-    if iCanHazVundle == 0
-        echo "Installing Bundles, please ignore key map error messages"
-        echo ""
-        :BundleInstall
-    endif
-" Setting up Vundle - the vim plugin bundler end
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
 
 filetype plugin indent on     " required!
 
@@ -83,6 +58,8 @@ set tabstop=4
 set expandtab
 set softtabstop=4
 set shiftwidth=4
+set foldmethod=indent
+set foldnestmax=2
 
 map <left> <nop>
 map <right> <nop>
@@ -126,18 +103,10 @@ noremap <F6> :CtrlPClearCache<cr>
 "
 " helpers for clipboard/copy/paste
 set pastetoggle=<F2>
-set clipboard=unnamed
-
-" trigger tagbar
-noremap <silent> <F3> :TagbarToggle<CR>
-
-" enable python-mode
-let g:pymode_run = 1
-let g:pymode_rope = 0
-let g:pymode_lint = 0
-let g:pymode_virtualenv = 1
-let g:pymode_motion = 1
-let g:pymode_folding = 1
+set clipboard=unnamedplus
+" copy to clipboard on exit, note it will not work on suspend :(
+" https://stackoverflow.com/questions/6453595/prevent-vim-from-clearing-the-clipboard-on-exit
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " supertab
 let g:SuperTabDefaultCompletionType = "context"
@@ -163,6 +132,11 @@ augroup filetype_custom
     autocmd FileType hy setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
+" http://vim.wikia.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
+augroup filetypedetect
+    au BufRead,BufNewFile *.playbook set filetype=yaml
+augroup END
+
 " convenience mapping
 nnoremap - dd
 nnoremap <space> V
@@ -174,6 +148,41 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev ORder Order
 inoremap jj <esc>
 nnoremap / /\v
+
+" FZF
+" activate fzf
+nnoremap <silent> <C-p> :FZF<CR>
+nnoremap <silent> <leader>t :Windows<CR>
+nnoremap <silent> <leader>l :Lines<CR>
+
+" YouCompleteMe config
+let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" re-define blacklist w/o 'text' to enable completion of text files
+" https://github.com/Valloric/YouCompleteMe/#the-gycm_filetype_blacklist-option
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'mail': 1
+      \}
+
+" make YCM compatible with UltiSnips (using supertab)
+" https://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme/22253548#22253548
+let g:ycm_key_list_select_completion = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:SuperTabCrMapping = 0
+
+" ultisnip config
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
