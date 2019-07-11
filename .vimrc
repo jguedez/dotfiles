@@ -17,9 +17,9 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'mattn/emmet-vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'ervandew/supertab'
-Plugin 'tomtom/tlib_vim'
+" Plugin 'tomtom/tlib_vim'
 Plugin 'jgdavey/tslime.vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'junegunn/fzf.vim'
@@ -34,6 +34,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'chrisbra/csv.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'ambv/black'
 
 " Git plugins
 Plugin 'tpope/vim-fugitive'
@@ -72,8 +73,6 @@ noremap <down> :bd <CR>
 
 let @d='0Oimport ipdb; ipdb.set_trace()0'
 
-set wildchar=<Tab> wildmenu wildmode=full
-
 let NERDTreeShowBookmarks=1
 nnoremap <silent> <F4> :NERDTreeToggle<CR>
 if filereadable($VIMRUNTIME . "/macros/matchit.vim")
@@ -94,13 +93,14 @@ noremap <silent> <c-j> :TmuxNavigateDown<cr>
 noremap <silent> <c-k> :TmuxNavigateUp<cr>
 noremap <silent> <c-l> :TmuxNavigateRight<cr>
 noremap <silent> <c-\> :TmuxNavigatePrevious<cr>
-vnoremap <F5> "ry :call Send_to_Tmux(@r)<CR>
-nnoremap <F5> V "ry :call Send_to_Tmux(@r)<CR>
-nnoremap <S-F5> <Plug>SetTmuxVars
 
-" flush ctrlp cache (default F5 is already remapped above)
-noremap <F6> :CtrlPClearCache<cr>
-"
+" tslime - https://github.com/jgdavey/tslime.vim
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
 " helpers for clipboard/copy/paste
 set pastetoggle=<F2>
 set clipboard=unnamedplus
@@ -118,18 +118,12 @@ augroup plugin_emmet
     autocmd FileType html,css,htmldjango EmmetInstall
 augroup END
 
-" ctrlp - extensions excludes
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
-
 " filetype overrides
 augroup filetype_custom
     autocmd!
     autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType coffee setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType hy setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " http://vim.wikia.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
@@ -177,7 +171,6 @@ let g:ycm_filetype_blacklist = {
 let g:ycm_key_list_select_completion = ['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:SuperTabCrMapping = 0
 
 " ultisnip config
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -186,6 +179,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " syntastic
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_quiet_messages = { 'regex': 'E501\|E501' }
 
 " import local .vimrc
 if filereadable($HOME . "/.vimrc_local")
