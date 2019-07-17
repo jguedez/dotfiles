@@ -34,6 +34,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'chrisbra/csv.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
+Plugin 'cespare/vim-toml'
 Plugin 'ambv/black'
 
 " Git plugins
@@ -124,6 +125,7 @@ augroup filetype_custom
     autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 " http://vim.wikia.com/wiki/Forcing_Syntax_Coloring_for_files_with_odd_extensions
