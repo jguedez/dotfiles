@@ -41,6 +41,7 @@ alias fzkill="ps aux | fzf | awk '{print \$2}' | xargs kill"
 
 # tmux aliases
 alias tmn="tmux display-message -t \$TMUX_PANE -F '#I:#W - command COMPLETED!'"
+alias tma="tmux attach -Ed"
 
 # Git aliases - http://www.catonmat.net/blog/git-aliases/
 alias ga='git add'
