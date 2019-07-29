@@ -75,6 +75,9 @@ alias dps="docker ps"
 alias dremove-containers="docker rm -v \$(docker ps -q -a)"
 alias dremove-images='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
 
+# Kubernetes aliases
+alias k="kubectl"
+
 # misc aliases
 alias ansible-local="ansible-playbook --connection=local -i 127.0.0.1,"
 
@@ -117,6 +120,16 @@ fi
 # http://docs.pyinvoke.org/en/1.2/invoke.html#shell-tab-completion
 if exists invoke; then
     source ~/.invoke-completion.sh
+fi
+
+# kubectl autocompletion
+if exists kubectl; then
+    source <(kubectl completion zsh)
+fi
+
+# minikube autocompletion
+if exists minikube; then
+    source <(minikube completion zsh)
 fi
 
 # add body function to keep headers in a table for sorting, etc (from Command line Kung Fu book)
