@@ -36,6 +36,8 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'cespare/vim-toml'
 Plugin 'ambv/black'
+Plugin 'martinda/Jenkinsfile-vim-syntax'
+Plugin 'dense-analysis/ale'
 
 " Git plugins
 Plugin 'tpope/vim-fugitive'
