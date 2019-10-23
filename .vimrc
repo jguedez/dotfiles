@@ -50,7 +50,8 @@ filetype plugin indent on     " required!
 
 "############################################
 syntax on
-color molokai
+" https://stackoverflow.com/a/54631931
+silent! color molokai
 nnoremap ; :
 nnoremap : ;
 set ls=2
