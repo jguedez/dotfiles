@@ -74,6 +74,7 @@ alias dpsa="docker ps -a"
 alias dps="docker ps"
 alias dremove-containers="docker rm -v \$(docker ps -q -a)"
 alias dremove-images='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+alias d-c='docker-compose'
 
 # Kubernetes aliases
 alias k="kubectl"
@@ -128,9 +129,9 @@ if exists kubectl; then
 fi
 
 # minikube autocompletion
-if exists minikube; then
-    source <(minikube completion zsh)
-fi
+# if exists minikube; then
+#     source <(minikube completion zsh)
+# fi
 
 # add body function to keep headers in a table for sorting, etc (from Command line Kung Fu book)
 # ps aux | body tail  # keep header and then last 10 lines
