@@ -185,6 +185,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_quiet_messages = { 'regex': 'E501\|E501' }
 
+" disable visualbell
+set visualbell
+
 " import local .vimrc
 if filereadable($HOME . "/.vimrc_local")
  source $HOME/.vimrc_local
