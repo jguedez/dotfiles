@@ -15,6 +15,7 @@ LOCAL_FILE=".zshrc_local"
 export EDITOR='vim'
 
 setopt HIST_IGNORE_SPACE
+setopt NO_BEEP  # Beeps are annoying
 
 bindkey -v
 bindkey "^R" history-incremental-search-backward
